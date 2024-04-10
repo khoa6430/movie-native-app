@@ -1,17 +1,12 @@
-import colors from "./palette";
-import fontConfig from "./font";
 import {
   MD3LightTheme as DefaultTheme,
-  PaperProvider,
+  configureFonts,
   useTheme,
 } from "react-native-paper";
-
-// // Extend the Theme interface to include your custom colors
-// declare module "react-native-paper/lib/typescript/types" {
-//   export interface ThemeColors {
-//     honeyGold: string;
-//   }
-// }
+import { Font } from "react-native-paper/lib/typescript/types";
+import colors from "./palette";
+import { Platform } from "react-native";
+import fontConfig from "./font";
 
 export const customTheme = {
   ...DefaultTheme,
@@ -19,6 +14,7 @@ export const customTheme = {
     ...DefaultTheme.colors,
     ...colors,
   },
+  fonts: configureFonts({ config: fontConfig }),
 };
 
 export type AppTheme = typeof customTheme;

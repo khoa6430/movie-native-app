@@ -1,28 +1,26 @@
+import { Font } from "react-native-paper/lib/typescript/types";
+
 const fontConfig = {
-  Roboto: {
-    100: {
-      normal: "Roboto-Light",
-      italic: "Roboto-LightItalic",
-    },
-    200: {
-      normal: "Roboto-Light",
-      italic: "Roboto-LightItalic",
-    },
-    300: {
-      normal: "Roboto-Light",
-      italic: "Roboto-LightItalic",
-    },
-    400: {
-      normal: "Roboto-Regular",
-      italic: "Roboto-Italic",
-    },
-    500: {
-      normal: "Roboto-Medium",
-    },
-    600: {
-      normal: "Roboto-Medium",
-      italic: "Roboto-MediumItalic",
-    },
+  bodySmall: {
+    fontFamily: "Roboto",
+    fontSize: 12,
+    fontWeight: "400" as Font["fontWeight"],
+    letterSpacing: 0.4,
+    lineHeight: 16,
+  },
+  bodyMedium: {
+    fontFamily: "Roboto",
+    fontSize: 14,
+    fontWeight: "400" as Font["fontWeight"],
+    letterSpacing: 0.25,
+    lineHeight: 20,
+  },
+  bodyLarge: {
+    fontFamily: "Roboto",
+    fontSize: 30,
+    fontWeight: "400" as Font["fontWeight"],
+    letterSpacing: 0.15,
+    lineHeight: 36,
   },
 };
 
