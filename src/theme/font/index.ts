@@ -10,10 +10,10 @@ const fontConfig = {
   },
   bodyMedium: {
     fontFamily: "Roboto",
-    fontSize: 14,
+    fontSize: 25,
     fontWeight: "400" as Font["fontWeight"],
     letterSpacing: 0.25,
-    lineHeight: 20,
+    lineHeight: 30,
   },
   bodyLarge: {
     fontFamily: "Roboto",
