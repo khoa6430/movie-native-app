@@ -20,6 +20,8 @@ import { Cast } from "../../types/cast.type";
 import MovieList from "../shared/MovieList";
 import MovieCast from "./MovieCast";
 import MovieInfor from "./MovieInfor";
+import GoBackButton from "../../components/GobackButton";
+import FavouriteButton from "../../components/FavouriteButton";
 
 export interface IMovieScreenProps {}
 
@@ -45,6 +47,7 @@ export default function MovieScreen(props: IMovieScreenProps) {
   const { params: item } = useRoute();
 
   const [isFavourite, toggleFavourite] = useState<boolean>(false);
+
   const [cast, setCast] = useState<Cast[]>([
     {
       character: "Tony Stark",
@@ -81,6 +84,13 @@ export default function MovieScreen(props: IMovieScreenProps) {
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+  const handleGoback = () => {
+    navigation.goBack();
+  };
+  const handleClickFavourite = () => {
+    toggleFavourite(!isFavourite);
+  };
+
   return (
     <ScrollView
       style={{
@@ -90,22 +100,11 @@ export default function MovieScreen(props: IMovieScreenProps) {
     >
       <View style={{ width: "100%" }}>
         <SafeAreaView style={safeAreaViewStyle}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: theme.colors.honeyGold,
-              borderRadius: 12,
-              padding: 4,
-            }}
-            onPress={() => navigation.goBack()}
-          >
-            <ChevronLeftIcon size={28} strokeWidth={2.5} color={"white"} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => toggleFavourite(!isFavourite)}>
-            <HeartIcon
-              size={35}
-              color={isFavourite ? theme.colors.honeyGold : theme.colors.white}
-            />
-          </TouchableOpacity>
+          <GoBackButton handleGoBack={handleGoback} />
+          <FavouriteButton
+            isFavourite={isFavourite}
+            handleClickFavourite={handleClickFavourite}
+          />
         </SafeAreaView>
 
         {loading ? (

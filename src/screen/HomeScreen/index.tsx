@@ -16,6 +16,9 @@ import { useAppTheme } from "../../theme/userTheme";
 import TrendingMovie from "./TrendingMovie";
 import { useState } from "react";
 import MovieList from "../shared/MovieList";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../navigation/appNavigation";
 
 const ios = Platform.OS == "ios";
 const HomeScreen = () => {
@@ -24,6 +27,7 @@ const HomeScreen = () => {
   const [trending, setTrending] = useState([1, 2, 3]);
   const [upcomming, setUpcomming] = useState([1, 2, 3, 4, 5, 6]);
   const [topRated, setTopRated] = useState([1, 2, 3, 4, 5, 6]);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.neutral800 }}>
@@ -41,7 +45,7 @@ const HomeScreen = () => {
           <Text style={{ color: theme.colors.white }} variant="bodyLarge">
             <Text style={{ color: theme.colors.honeyGold }}>M</Text>ovies
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
           </TouchableOpacity>
         </View>

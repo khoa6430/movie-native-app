@@ -1,11 +1,23 @@
 import { Font } from "react-native-paper/lib/typescript/types";
 
 const fontConfig = {
-  labelMedium: {
+  labelSmall: {
     fontSize: 12,
     fontWeight: "400" as Font["fontWeight"],
     letterSpacing: 0.5,
     lineHeight: 16,
+  },
+  labelMedium: {
+    fontSize: 14,
+    fontWeight: "400" as Font["fontWeight"],
+    letterSpacing: 0.5,
+    lineHeight: 20,
+  },
+  labelLarge: {
+    fontSize: 16,
+    fontWeight: "400" as Font["fontWeight"],
+    letterSpacing: 0.5,
+    lineHeight: 24,
   },
   bodySmall: {
     // fontFamily: "Roboto",

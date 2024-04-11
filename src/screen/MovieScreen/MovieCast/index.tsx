@@ -39,7 +39,7 @@ export default function MovieCast(props: IMovieCastProps) {
             return (
               <TouchableOpacity
                 key={index}
-                // onPress={() => navigation.navigate("Person", person)}
+                onPress={() => navigation.navigate("Actor", person)}
                 style={{ marginRight: 16, alignItems: "center" }}
               >
                 <View
@@ -65,7 +65,7 @@ export default function MovieCast(props: IMovieCastProps) {
 
                 <Text
                   style={{ color: theme.colors.white, marginTop: 4 }}
-                  variant="labelMedium"
+                  variant="labelSmall"
                 >
                   {person?.character.length > 10
                     ? person?.character.slice(0, 10) + "..."
@@ -73,7 +73,7 @@ export default function MovieCast(props: IMovieCastProps) {
                 </Text>
                 <Text
                   style={{ color: theme.colors.neutral400 }}
-                  variant="labelMedium"
+                  variant="labelSmall"
                 >
                   {person?.original_name.length > 10
                     ? person?.original_name.slice(0, 10) + "..."
