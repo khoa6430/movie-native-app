@@ -6,5 +6,11 @@
     /* Completeness */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-
+  "paths": {
+    "src/*": ["./src/*"],
+    "@Configs/*": ["./src/configs/*"],
+    "@Stores/*": ["./src/stores/*"],
+    "@Component": ["./src/components/*"],
+    "@Public/*": ["./public/*"]
+  }
 }

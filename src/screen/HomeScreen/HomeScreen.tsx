@@ -15,12 +15,15 @@ import { Text, useTheme } from "react-native-paper";
 import { useAppTheme } from "../../theme/userTheme";
 import TrendingMovie from "./TrendingMovie";
 import { useState } from "react";
+import MovieList from "../shared/MovieList";
 
 const ios = Platform.OS == "ios";
 const HomeScreen = () => {
   const theme = useAppTheme();
 
   const [trending, setTrending] = useState([1, 2, 3]);
+  const [upcomming, setUpcomming] = useState([1, 2, 3, 4, 5, 6]);
+  const [topRated, setTopRated] = useState([1, 2, 3, 4, 5, 6]);
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.neutral800 }}>
@@ -47,6 +50,8 @@ const HomeScreen = () => {
           contentContainerStyle={{ paddingBottom: 10 }}
         >
           <TrendingMovie data={trending} />
+          <MovieList titleList="Upcoming" data={upcomming} />
+          <MovieList titleList="Top Rated" data={topRated} />
         </ScrollView>
       </SafeAreaView>
     </View>

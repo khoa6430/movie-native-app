@@ -1,8 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screen/HomeScreen/HomeScreen";
+import MovieScreen from "../screen/MovieScreen";
 
-const Stack = createNativeStackNavigator();
+export type ScreenNames = ["Home", "Movie"];
+export type RootStackParamList = Record<ScreenNames[number], undefined>;
+export type StackNavigation = NavigationProp<RootStackParamList>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigation = () => {
   return (
@@ -12,6 +17,11 @@ const AppNavigation = () => {
           name="Home"
           options={{ headerShown: false }}
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Movie"
+          options={{ headerShown: false }}
+          component={MovieScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

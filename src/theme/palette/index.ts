@@ -1,7 +1,11 @@
 const colors = {
-  honeyGold: "#eab308",
-  neutral800: "#424242",
   white: "#ffff",
+  honeyGold: "#eab308",
+  textPrimary: "#eab308",
+  textNeutral: "#D4D4D4",
+  neutral400: "#A3A3A3",
+  neutral800: "#262626",
+  neutral900: "#171717",
 };
 
 export default colors;
