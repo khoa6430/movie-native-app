@@ -39,7 +39,7 @@ export default function MovieCast(props: IMovieCastProps) {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate("Person", person)}
+                // onPress={() => navigation.navigate("Person", person)}
                 style={{ marginRight: 16, alignItems: "center" }}
               >
                 <View

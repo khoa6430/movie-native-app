@@ -1,31 +1,25 @@
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { LinearGradient } from "expo-linear-gradient";
+import { useState } from "react";
 import {
   Dimensions,
   Image,
   Platform,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
-import { Text } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppTheme } from "../../theme/userTheme";
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
-import { useState } from "react";
-import Loading from "../../components/Loading";
-import { LinearGradient } from "expo-linear-gradient";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
-import { StackNavigation } from "../../navigation/appNavigation";
-import MovieInfor from "./MovieInfor";
-import MovieCast from "./MovieCast";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Loading from "../../components/Loading";
+import { RootStackParamList } from "../../navigation/appNavigation";
+import { useAppTheme } from "../../theme/userTheme";
 import { Cast } from "../../types/cast.type";
 import MovieList from "../shared/MovieList";
+import MovieCast from "./MovieCast";
+import MovieInfor from "./MovieInfor";
 
 export interface IMovieScreenProps {}
 
@@ -49,6 +43,7 @@ const safeAreaViewStyle: SafeAreaViewStyle = {
 export default function MovieScreen(props: IMovieScreenProps) {
   const theme = useAppTheme();
   const { params: item } = useRoute();
+
   const [isFavourite, toggleFavourite] = useState<boolean>(false);
   const [cast, setCast] = useState<Cast[]>([
     {
@@ -80,13 +75,19 @@ export default function MovieScreen(props: IMovieScreenProps) {
       original_name: "Chris Hemsworth",
     },
   ]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [similarMovies, setSimilarMovies] = useState<number[]>([1, 2, 3, 4]);
 
-  const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: theme.colors.neutral900 }}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.neutral900,
+      }}
+    >
       <View style={{ width: "100%" }}>
         <SafeAreaView style={safeAreaViewStyle}>
           <TouchableOpacity
@@ -138,7 +139,11 @@ export default function MovieScreen(props: IMovieScreenProps) {
       {cast?.length > 0 && <MovieCast cast={cast} />}
 
       {similarMovies?.length > 0 && (
-        <MovieList data={similarMovies} titleList="Similiar Movies" />
+        <MovieList
+          data={similarMovies}
+          titleList="Similiar Movies"
+          hideSeeAll
+        />
       )}
     </ScrollView>
   );

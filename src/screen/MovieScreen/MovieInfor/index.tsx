@@ -68,7 +68,7 @@ export default function MovieInfor(props: IMovieDetailProps) {
           >
             {/* {movie?.status} • {movie?.release_date?.split("-")[0] || "N/A"} •{" "}
               {movie?.runtime} min */}
-            Realeased 2020 170 min
+            Realeased • 2020 • 170 min
           </Text>
         ) : null}
 

@@ -9,18 +9,27 @@ import {
 } from "react-native";
 import { useAppTheme } from "../../../theme/userTheme";
 import { Text, TextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigation } from "../../../navigation/appNavigation";
+import {
+  NavigationProp,
+  ParamListBase,
+  useNavigation,
+} from "@react-navigation/native";
+import {
+  RootStackParamList,
+  StackNavigation,
+} from "../../../navigation/appNavigation";
+import { StackNavigationProp } from "@react-navigation/stack";
 export interface IMovieListProps {
   titleList: string;
   data: number[];
+  hideSeeAll?: boolean;
 }
 
 let { width, height } = Dimensions.get("window");
 
 export default function MovieList(props: IMovieListProps) {
-  const { titleList, data } = props;
-  const { navigate } = useNavigation<StackNavigation>();
+  const { titleList, data, hideSeeAll = false } = props;
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const theme = useAppTheme();
 
   return (
@@ -41,16 +50,18 @@ export default function MovieList(props: IMovieListProps) {
         <Text variant="bodyMedium" style={{ color: theme.colors.white }}>
           {titleList}
         </Text>
-        <TouchableOpacity>
-          <Text
-            style={{
-              color: theme.colors.textPrimary,
-            }}
-            variant="bodySmall"
-          >
-            See All
-          </Text>
-        </TouchableOpacity>
+        {!hideSeeAll && (
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: theme.colors.textPrimary,
+              }}
+              variant="bodySmall"
+            >
+              See All
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
       {/* MOVIE ROW */}
       <ScrollView
@@ -62,7 +73,7 @@ export default function MovieList(props: IMovieListProps) {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigate("Movie")}
+              onPress={() => navigation.push("Movie")}
             >
               <View style={{ marginVertical: 16, marginRight: 16 }}>
                 <Image
@@ -74,7 +85,11 @@ export default function MovieList(props: IMovieListProps) {
                   }}
                 />
                 <Text
-                  style={{ color: theme.colors.textNeutral, marginLeft: 4 }}
+                  style={{
+                    color: theme.colors.textNeutral,
+                    marginLeft: 4,
+                    marginTop: 6,
+                  }}
                 >
                   Movie name {item}
                 </Text>
