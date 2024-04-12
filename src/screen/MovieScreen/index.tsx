@@ -13,15 +13,15 @@ import {
 } from "react-native";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Loading from "../../components/Loading";
+import Loading from "../../components/loading";
 import { RootStackParamList } from "../../navigation/appNavigation";
 import { useAppTheme } from "../../theme/userTheme";
-import { Cast } from "../../types/cast.type";
+import { Cast } from "../../types/movie.type";
 import MovieList from "../shared/MovieList";
 import MovieCast from "./MovieCast";
 import MovieInfor from "./MovieInfor";
-import GoBackButton from "../../components/GobackButton";
-import FavouriteButton from "../../components/FavouriteButton";
+import GoBackButton from "../../components/goback-button";
+import FavouriteButton from "../../components/favourite-button";
 
 export interface IMovieScreenProps {}
 

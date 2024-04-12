@@ -1,5 +1,5 @@
 import { Dimensions, Image, Platform, StyleSheet, View } from "react-native";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/loading";
 import { Text } from "react-native-paper";
 import { useAppTheme } from "../../../theme/userTheme";
 import MovieList from "../../shared/MovieList";

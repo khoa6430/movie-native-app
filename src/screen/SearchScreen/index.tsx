@@ -1,7 +1,7 @@
 import { ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Loading from "../../components/Loading";
+import Loading from "../../components/loading";
 import { useAppTheme } from "../../theme/userTheme";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { useCallback, useState } from "react";

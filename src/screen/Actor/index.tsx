@@ -5,8 +5,8 @@ import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigation/appNavigation";
-import GoBackButton from "../../components/GobackButton";
-import FavouriteButton from "../../components/FavouriteButton";
+import GoBackButton from "../../components/goback-button";
+import FavouriteButton from "../../components/favourite-button";
 import ActorDetail from "./ActorDetail";
 
 export interface IActorScreenProps {}

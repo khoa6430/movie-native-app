@@ -6,14 +6,20 @@ import Carousel from "react-native-snap-carousel";
 import MovieCard from "../../shared/MovieCard";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "../../../navigation/appNavigation";
+import { useGetTrendingMovie } from "../../../hooks/movies/useGetTrendingMovie";
 
 export interface ITrendingMovieProps {
   data: number[];
 }
 let { width, height } = Dimensions.get("window");
 export default function TrendingMovie(props: ITrendingMovieProps) {
-  const { data } = props;
+  // const { data } = props;
   const theme = useAppTheme();
+  const { data } = useGetTrendingMovie();
+  // console.log("useGetTrendingMovie:", useGetTrendingMovie());
+
+  console.log("data:", data);
+
   const { navigate } = useNavigation<StackNavigation>();
   const handleClick = () => {
     navigate("Movie");
