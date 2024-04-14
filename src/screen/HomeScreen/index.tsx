@@ -53,7 +53,7 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
-          <TrendingMovie data={trending} />
+          <TrendingMovie />
           <MovieList titleList="Upcoming" data={upcomming} />
           <MovieList titleList="Top Rated" data={topRated} />
         </ScrollView>

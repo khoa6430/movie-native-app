@@ -8,7 +8,6 @@ class MoviesService {
       timeout: 30000,
     });
     const { data } = res;
-    console.log("res:", res);
     return data;
   }
 }
