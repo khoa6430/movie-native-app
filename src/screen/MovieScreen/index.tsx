@@ -137,11 +137,12 @@ export default function MovieScreen(props: IMovieScreenProps) {
       {cast?.length > 0 && <MovieCast cast={cast} />}
 
       {similarMovies?.length > 0 && (
-        <MovieList
-          data={similarMovies}
-          titleList="Similiar Movies"
-          hideSeeAll
-        />
+        // <MovieList
+        //   data={similarMovies}
+        //   titleList="Similiar Movies"
+        //   hideSeeAll
+        // />
+        <></>
       )}
     </ScrollView>
   );

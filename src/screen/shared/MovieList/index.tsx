@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import * as React from "react";
 import {
   Dimensions,
@@ -7,21 +9,21 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { Text } from "react-native-paper";
+import { RootStackParamList } from "../../../navigation/appNavigation";
 import { useAppTheme } from "../../../theme/userTheme";
-import { Text, TextInput } from "react-native-paper";
-import {
-  NavigationProp,
-  ParamListBase,
-  useNavigation,
-} from "@react-navigation/native";
-import {
-  RootStackParamList,
-  StackNavigation,
-} from "../../../navigation/appNavigation";
-import { StackNavigationProp } from "@react-navigation/stack";
+import generateImageUrlBySize, {
+  ImageSize,
+} from "../../../constants/get-image-url";
+
+interface Movie {
+  title: string;
+  url: string;
+}
+
 export interface IMovieListProps {
   titleList: string;
-  data: number[];
+  data?: Movie[];
   hideSeeAll?: boolean;
 }
 
@@ -69,7 +71,7 @@ export default function MovieList(props: IMovieListProps) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <TouchableWithoutFeedback
               key={index}
@@ -77,7 +79,9 @@ export default function MovieList(props: IMovieListProps) {
             >
               <View style={{ marginVertical: 16, marginRight: 16 }}>
                 <Image
-                  source={require("../../../../assets/images/moviePoster2.png")}
+                  source={{
+                    uri: generateImageUrlBySize(ImageSize.W185, item?.url),
+                  }}
                   style={{
                     width: width * 0.33,
                     height: height * 0.22,
@@ -91,7 +95,9 @@ export default function MovieList(props: IMovieListProps) {
                     marginTop: 6,
                   }}
                 >
-                  Movie name {item}
+                  {item?.title?.length > 19
+                    ? item?.title.slice(0, 19) + "..."
+                    : item?.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

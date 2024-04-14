@@ -1,33 +1,31 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-import {
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import {
   Bars3CenterLeftIcon,
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
-import { Text, useTheme } from "react-native-paper";
-import { useAppTheme } from "../../theme/userTheme";
-import TrendingMovie from "./TrendingMovie";
-import { useState } from "react";
-import MovieList from "../shared/MovieList";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
+import { Text } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../../navigation/appNavigation";
+import { useAppTheme } from "../../theme/userTheme";
+import MovieList from "../shared/MovieList";
+import TrendingMovieSlide from "./TrendingMovie";
+import { useGetUpcomingMovie } from "../../hooks/movies/useGetUpcomingMovie";
+import { useGetTopRatedMovie } from "../../hooks/movies/useGetTopRatedMovie";
 
 const ios = Platform.OS == "ios";
 const HomeScreen = () => {
   const theme = useAppTheme();
 
-  const [trending, setTrending] = useState([1, 2, 3]);
   const [upcomming, setUpcomming] = useState([1, 2, 3, 4, 5, 6]);
   const [topRated, setTopRated] = useState([1, 2, 3, 4, 5, 6]);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const { data: dataUpcoming } = useGetUpcomingMovie();
+  const { data: dataTopRated } = useGetTopRatedMovie();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.neutral800 }}>
@@ -53,9 +51,26 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
-          <TrendingMovie />
-          <MovieList titleList="Upcoming" data={upcomming} />
-          <MovieList titleList="Top Rated" data={topRated} />
+          <TrendingMovieSlide />
+          <MovieList
+            titleList="Upcoming"
+            data={dataUpcoming?.results.map((item) => {
+              return {
+                title: item.title,
+                url: item.poster_path,
+              };
+            })}
+          />
+
+          <MovieList
+            titleList="Top Rated"
+            data={dataTopRated?.results.map((item) => {
+              return {
+                title: item.title,
+                url: item.poster_path,
+              };
+            })}
+          />
         </ScrollView>
       </SafeAreaView>
     </View>
