@@ -5,7 +5,7 @@ import { SimilarMovieList } from "../../types/movie.type";
 
 export const useGetSimilarMovie = (idMovie: string) => {
   return useQuery<SimilarMovieList>({
-    queryKey: [QUERY_KEYS.GET_SIMILAR_MOVIE],
+    queryKey: [QUERY_KEYS.GET_SIMILAR_MOVIE, idMovie],
     queryFn: () => {
       return movieService.getSimilarMovies(idMovie);
     },

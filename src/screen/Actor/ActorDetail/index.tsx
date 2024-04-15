@@ -42,7 +42,12 @@ export default function ActorDetail(props: IActorDetailProps) {
             padding: 8,
           }}
         >
-          <Text style={{ color: theme.colors.white, fontWeight: "600" }}>
+          <Text
+            style={{
+              color: theme.colors.white,
+              fontWeight: "600",
+            }}
+          >
             {title}
           </Text>
           <Text
@@ -145,8 +150,8 @@ export default function ActorDetail(props: IActorDetailProps) {
             <View
               style={{
                 paddingHorizontal: 8,
-                flex: 1,
-                // alignItems: "center",
+                // flex: 1,
+                alignItems: "center",
               }}
             >
               <Text

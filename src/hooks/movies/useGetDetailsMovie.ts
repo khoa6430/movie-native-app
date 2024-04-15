@@ -5,7 +5,7 @@ import { DetailsMovie, TrendingMovieList } from "../../types/movie.type";
 
 export const useGetDetailsMovie = (idMovie: string) => {
   return useQuery<DetailsMovie>({
-    queryKey: [QUERY_KEYS.GET_DETAILS_MOVIE],
+    queryKey: [QUERY_KEYS.GET_DETAILS_MOVIE, idMovie],
     queryFn: () => {
       return movieService.getMoviesDetail(idMovie);
     },

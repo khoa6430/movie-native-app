@@ -9,7 +9,7 @@ import {
 
 export const useGetMoviesByCast = (idCast: string) => {
   return useQuery<MovieByCastList>({
-    queryKey: [QUERY_KEYS.GET_MOVIES_BY_CAST],
+    queryKey: [QUERY_KEYS.GET_MOVIES_BY_CAST, idCast],
     queryFn: () => {
       return movieService.getMoviesByCast(idCast);
     },
