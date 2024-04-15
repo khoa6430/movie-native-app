@@ -7,15 +7,25 @@ import {
   ParamListBase,
   useNavigation,
 } from "@react-navigation/native";
+import { Cast } from "../../../types/cast.type";
+import generateImageUrlBySize, {
+  ImageSize,
+} from "../../../constants/get-image-url";
+import FallbackImages from "../../../constants/fall-back-image";
+import { StackNavigation } from "../../../navigation/appNavigation";
 
 export interface IMovieCastProps {
-  cast: any;
+  cast?: Cast[];
 }
 
 export default function MovieCast(props: IMovieCastProps) {
   const { cast } = props;
   const theme = useAppTheme();
-  const navigation: NavigationProp<ParamListBase> = useNavigation();
+  const navigation = useNavigation<StackNavigation>();
+
+  const handleNavigate = (castId?: number) => {
+    navigation.navigate("Actor", { castId: `${castId}` });
+  };
 
   return (
     <View style={{ marginVertical: 24 }}>
@@ -35,11 +45,11 @@ export default function MovieCast(props: IMovieCastProps) {
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
         {cast &&
-          cast.map((person: any, index: number) => {
+          cast.map((person: Cast, index: number) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => navigation.navigate("Actor", person)}
+                onPress={() => handleNavigate(person?.id)}
                 style={{ marginRight: 16, alignItems: "center" }}
               >
                 <View
@@ -54,7 +64,13 @@ export default function MovieCast(props: IMovieCastProps) {
                   }}
                 >
                   <Image
-                    source={require("../../../../assets/images/castImage1.png")}
+                    source={{
+                      uri: generateImageUrlBySize(
+                        ImageSize.W185,
+                        person?.profile_path ||
+                          FallbackImages.FallbackPersonImage
+                      ),
+                    }}
                     style={{
                       borderRadius: 24,
                       height: 96,

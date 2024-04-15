@@ -1,11 +1,26 @@
 export const QUERY_KEYS = {
-  GET_MOVIES_TRENDING: {
-    KEY: "getMoviesTrending",
+  GET_TRENDING_MOVIES: {
+    KEY: "getTrendingMovies",
   },
-  GET_MOVIES_UPCOMING: {
-    KEY: "getMoviesUpcoming",
+  GET_UPCOMING_MOVIES: {
+    KEY: "getUpcomingMovies",
   },
-  GET_MOVIES_TOP_RATE: {
-    KEY: "getMoviesTopRate",
+  GET_TOP_RATE_MOVIES: {
+    KEY: "getTopRateMovies",
+  },
+  GET_DETAILS_MOVIE: {
+    KEY: "getDetailsMovies",
+  },
+  GET_SIMILAR_MOVIE: {
+    KEY: "getSimilarMovies",
+  },
+  GET_CAST_LIST: {
+    KEY: "getCastList",
+  },
+  GET_DETAILS_CASTS: {
+    KEY: "getDetailsCast",
+  },
+  GET_MOVIES_BY_CAST: {
+    KEY: "getMoviesByCast",
   },
 };

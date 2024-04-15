@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Dimensions, Platform, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppTheme } from "../../../theme/userTheme";
+import { DetailsMovie } from "../../../types/movie.type";
 
-export interface IMovieDetailProps {}
+export interface IMovieDetailProps {
+  dataDetailsMovie?: DetailsMovie;
+}
 
 interface Genre {
   name: string;
@@ -19,26 +22,8 @@ interface Movie {
 let { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
 export default function MovieInfor(props: IMovieDetailProps) {
+  const { dataDetailsMovie } = props;
   const theme = useAppTheme();
-
-  const [movie, setMovie] = useState<Movie | null>({
-    id: "1",
-    title: "Ant-Man and the Wasp: Quantumania",
-    status: "",
-    genres: [
-      {
-        name: "Action",
-      },
-      {
-        name: "Thrill",
-      },
-      {
-        name: "Comedy",
-      },
-    ],
-    overview:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non ex nec urna euismod interdum ut id eros. Sed sed mauris justo. Nulla in velit in elit tincidunt gravida id eu sem. Quisque nulla elit, pellentesque non ultricies sit amet, posuere at purus. Nam bibendum ipsum eleifend justo finibus posuere. Fusce quis molestie erat. Fusce lectus dolor, tempor in dolor sit amet, accumsan egestas tortor. Sed sollicitudin suscipit elit ut varius. Sed nec turpis scelerisque, ultricies dolor quis, fringilla erat",
-  });
 
   return (
     <>
@@ -53,10 +38,10 @@ export default function MovieInfor(props: IMovieDetailProps) {
           }}
           variant="bodyLarge"
         >
-          {movie?.title}
+          {dataDetailsMovie?.title}
         </Text>
         {/* Status, Release , Runtime */}
-        {movie?.id ? (
+        {dataDetailsMovie?.id ? (
           <Text
             style={{
               color: theme.colors.neutral400,
@@ -66,9 +51,9 @@ export default function MovieInfor(props: IMovieDetailProps) {
               textAlign: "center",
             }}
           >
-            {/* {movie?.status} • {movie?.release_date?.split("-")[0] || "N/A"} •{" "}
-              {movie?.runtime} min */}
-            Realeased • 2020 • 170 min
+            {dataDetailsMovie?.status} •{" "}
+            {dataDetailsMovie?.release_date?.split("-")[0] || "N/A"} •{" "}
+            {dataDetailsMovie?.runtime}
           </Text>
         ) : null}
 
@@ -81,8 +66,8 @@ export default function MovieInfor(props: IMovieDetailProps) {
             marginVertical: 8,
           }}
         >
-          {movie?.genres?.map((genre: any, index: number) => {
-            let showDot = index + 1 != movie.genres.length;
+          {dataDetailsMovie?.genres?.map((genre: any, index: number) => {
+            let showDot = index + 1 != dataDetailsMovie?.genres.length;
             return (
               <Text
                 key={index}
@@ -94,7 +79,7 @@ export default function MovieInfor(props: IMovieDetailProps) {
                   textAlign: "center",
                 }}
               >
-                {genre?.name} {showDot ? "•" : null}
+                {genre?.name} {showDot ? " • " : null}
               </Text>
             );
           })}
@@ -108,7 +93,7 @@ export default function MovieInfor(props: IMovieDetailProps) {
             //   letterSpacing: 0.4,
           }}
         >
-          {movie?.overview}
+          {dataDetailsMovie?.overview}
         </Text>
       </View>
     </>

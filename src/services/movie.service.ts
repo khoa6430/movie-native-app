@@ -32,6 +32,36 @@ class MoviesService {
     const { data } = res;
     return data;
   }
+  async getMoviesDetail(movie_id: string) {
+    const res = await axiosWithTimeout(`/3/movie/${movie_id}?language=en-US`, {
+      method: "GET",
+      timeout: 30000,
+    });
+    const { data } = res;
+    return data;
+  }
+  async getSimilarMovies(movie_id: string) {
+    const res = await axiosWithTimeout(
+      `3/movie/${movie_id}/similar?language=en-US`,
+      {
+        method: "GET",
+        timeout: 30000,
+      }
+    );
+    const { data } = res;
+    return data;
+  }
+  async getMoviesByCast(castId: string) {
+    const res = await axiosWithTimeout(
+      `3/person/${castId}/movie_credits?language=en-US`,
+      {
+        method: "GET",
+        timeout: 30000,
+      }
+    );
+    const { data } = res;
+    return data;
+  }
 }
 
 export const movieService = new MoviesService();

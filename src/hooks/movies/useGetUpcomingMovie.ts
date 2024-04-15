@@ -5,7 +5,7 @@ import { TrendingMovieList, UpcomingMovieList } from "../../types/movie.type";
 
 export const useGetUpcomingMovie = () => {
   return useQuery<UpcomingMovieList>({
-    queryKey: [QUERY_KEYS.GET_MOVIES_UPCOMING],
+    queryKey: [QUERY_KEYS.GET_UPCOMING_MOVIES],
     queryFn: () => {
       return movieService.getMoviesUpcoming();
     },

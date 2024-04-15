@@ -1,4 +1,8 @@
-import { NavigationContainer, NavigationProp } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  NavigationProp,
+  RouteProp,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screen/HomeScreen";
 import MovieScreen from "../screen/MovieScreen";
@@ -6,7 +10,17 @@ import ActorScreen from "../screen/Actor";
 import SearchScreen from "../screen/SearchScreen";
 
 export type ScreenNames = ["Home", "Movie", "Actor", "Search"];
-export type RootStackParamList = Record<ScreenNames[number], undefined>;
+
+export type RootStackParamList = {
+  Home: undefined;
+  Movie: { movieId: string };
+  Actor: { castId: string };
+  Search: undefined;
+};
+
+export type RootRouteProps<RouteName extends keyof RootStackParamList> =
+  RouteProp<RootStackParamList, RouteName>;
+
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

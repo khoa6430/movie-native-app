@@ -4,22 +4,32 @@ import { Text } from "react-native-paper";
 import { useAppTheme } from "../../../theme/userTheme";
 import MovieList from "../../shared/MovieList";
 import { useState } from "react";
+import { DetailsCast } from "../../../types/cast.type";
+import generateImageUrlBySize, {
+  ImageSize,
+} from "../../../constants/get-image-url";
+import FallbackImages from "../../../constants/fall-back-image";
+import { useGetMoviesByCast } from "../../../hooks/movies/useGetMoviesByCast";
 
 export interface IActorDetailProps {
+  dataDetailsCast?: DetailsCast;
   loading: boolean;
 }
 let { width, height } = Dimensions.get("window");
 export default function ActorDetail(props: IActorDetailProps) {
-  const { loading } = props;
+  const { dataDetailsCast, loading } = props;
   const theme = useAppTheme();
-  const [personMovies, setPersonMovies] = useState([1, 2, 3, 4]);
+
+  const { data: dataMovieByCast } = useGetMoviesByCast(
+    `${dataDetailsCast?.id}`
+  );
 
   const InformationActor = ({
-    title,
-    detail,
+    title = "",
+    detail = "",
   }: {
     title: string;
-    detail: string;
+    detail?: string;
   }) => {
     return (
       <>
@@ -72,10 +82,13 @@ export default function ActorDetail(props: IActorDetailProps) {
               }}
             >
               <Image
-                source={require("../../../../assets/images/castImage2.png")}
-                // source={{
-                //   uri: image342(person?.profile_path) || fallbackPersonImage,
-                // }}
+                source={{
+                  uri: generateImageUrlBySize(
+                    ImageSize.W342,
+                    dataDetailsCast?.profile_path ||
+                      FallbackImages.FallbackPersonImage
+                  ),
+                }}
                 style={{ height: height * 0.43, width: width * 0.74 }}
               />
             </View>
@@ -90,8 +103,7 @@ export default function ActorDetail(props: IActorDetailProps) {
               }}
               variant="labelLarge"
             >
-              Keanu Reeves
-              {/* {person?.name} */}
+              {dataDetailsCast?.name}
             </Text>
             <Text
               style={{
@@ -101,8 +113,7 @@ export default function ActorDetail(props: IActorDetailProps) {
               }}
               variant="labelLarge"
             >
-              {/* {person?.place_of_birth} */}
-              Beirut, Lebanon
+              {dataDetailsCast?.place_of_birth}
             </Text>
           </View>
 
@@ -118,9 +129,18 @@ export default function ActorDetail(props: IActorDetailProps) {
               borderRadius: 999,
             }}
           >
-            <InformationActor title="Gender" detail="Male" />
-            <InformationActor title="Birthday" detail="1964-09-02" />
-            <InformationActor title="Known for" detail="Acting" />
+            <InformationActor
+              title="Gender"
+              detail={dataDetailsCast?.gender == 1 ? "Female" : "Male"}
+            />
+            <InformationActor
+              title="Birthday"
+              detail={dataDetailsCast?.birthday}
+            />
+            <InformationActor
+              title="Known for"
+              detail={dataDetailsCast?.known_for_department}
+            />
 
             <View
               style={{
@@ -139,15 +159,15 @@ export default function ActorDetail(props: IActorDetailProps) {
                 Popularity
               </Text>
               <Text
-                style={{ color: theme.colors.neutral300, fontWeight: "600" }}
+                style={{
+                  color: theme.colors.neutral300,
+                  fontWeight: "600",
+                  textAlign: "center",
+                }}
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non,
-                aliquam, quam aspernatur ut debitis corporis et harum quisquam
-                illum facilis iusto totam, accusamus ex praesentium enim facere
-                eaque ab voluptate?
-                {/* {person?.popularity?.toFixed(2)} % */}
+                {dataDetailsCast?.popularity?.toFixed(2)} %
               </Text>
             </View>
           </View>
@@ -165,18 +185,21 @@ export default function ActorDetail(props: IActorDetailProps) {
               style={{ color: theme.colors.neutral400 }}
               variant="bodySmall"
             >
-              {/* {person?.biography || "N/A"} */}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-              praesentium hic accusantium et laboriosam soluta obcaecati
-              provident natus! Qui, saepe. Saepe quo eveniet placeat accusantium
-              animi soluta facilis libero illo aperiam ex atque itaque aut, quam
-              distinctio excepturi, molestias veniam optio! Vero aliquid
-              necessitatibus, rem officiis consequuntur veniam et iste.
+              {dataDetailsCast?.biography || "N/A"}
             </Text>
           </View>
 
-          {/* person movies */}
-          <MovieList titleList={"Movies"} hideSeeAll data={personMovies} />
+          {/* Actor movies */}
+          <MovieList
+            titleList="Movies"
+            data={dataMovieByCast?.cast?.map((item) => {
+              return {
+                title: item?.title || "",
+                url: item?.poster_path,
+              };
+            })}
+            hideSeeAll
+          />
         </View>
       )}
     </>

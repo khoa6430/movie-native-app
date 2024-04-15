@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../constants/query-key";
 import { movieService } from "../../services/movie.service";
-import { TrendingMovieList } from "../../types/movie.type";
+import { TopRatedMovieList, TrendingMovieList } from "../../types/movie.type";
 
 export const useGetTopRatedMovie = () => {
-  return useQuery<TrendingMovieList>({
-    queryKey: [QUERY_KEYS.GET_MOVIES_TOP_RATE],
+  return useQuery<TopRatedMovieList>({
+    queryKey: [QUERY_KEYS.GET_TOP_RATE_MOVIES],
     queryFn: () => {
       return movieService.getMoviesTopRate();
     },

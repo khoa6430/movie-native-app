@@ -4,20 +4,26 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../navigation/appNavigation";
+import {
+  RootRouteProps,
+  RootStackParamList,
+} from "../../navigation/appNavigation";
 import GoBackButton from "../../components/goback-button";
 import FavouriteButton from "../../components/favourite-button";
 import ActorDetail from "./ActorDetail";
+import { useGetDetailsCast } from "../../hooks/casts/useGetDetailsCast";
 
 export interface IActorScreenProps {}
 
 const ios = Platform.OS == "ios";
 export default function ActorScreen(props: IActorScreenProps) {
   const theme = useAppTheme();
-  const { params: item } = useRoute();
+  const route = useRoute<RootRouteProps<"Actor">>();
+
   const [isFavourite, toggleFavourite] = useState(false);
-  const [actor, setActor] = useState({});
-  const [personMovies, setPersonMovies] = useState([]);
+
+  const { data: dataCasts } = useGetDetailsCast(route?.params?.castId);
+
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -52,7 +58,7 @@ export default function ActorScreen(props: IActorScreenProps) {
           handleClickFavourite={handleClickFavourite}
         />
       </SafeAreaView>
-      <ActorDetail loading={false} />
+      <ActorDetail loading={false} dataDetailsCast={dataCasts} />
     </ScrollView>
   );
 }

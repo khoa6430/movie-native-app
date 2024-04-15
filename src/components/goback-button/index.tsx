@@ -22,7 +22,7 @@ export default function GoBackButton(props: IGoBackButtonProps) {
         borderRadius: 12,
         padding: 4,
       }}
-      onPress={handleGoBack}
+      onPress={() => handleGoBack()}
     >
       <ChevronLeftIcon size={28} strokeWidth={2.5} color={"white"} />
     </TouchableOpacity>

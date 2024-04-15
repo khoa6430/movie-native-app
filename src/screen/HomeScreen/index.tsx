@@ -20,15 +20,19 @@ const ios = Platform.OS == "ios";
 const HomeScreen = () => {
   const theme = useAppTheme();
 
-  const [upcomming, setUpcomming] = useState([1, 2, 3, 4, 5, 6]);
-  const [topRated, setTopRated] = useState([1, 2, 3, 4, 5, 6]);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const { data: dataUpcoming } = useGetUpcomingMovie();
   const { data: dataTopRated } = useGetTopRatedMovie();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.neutral800 }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.neutral800,
+        paddingBottom: 30,
+      }}
+    >
       <SafeAreaView style={{ marginTop: ios ? -2 : 15 }}>
         <StatusBar style="light" />
         <View
@@ -56,18 +60,18 @@ const HomeScreen = () => {
             titleList="Upcoming"
             data={dataUpcoming?.results.map((item) => {
               return {
-                title: item.title,
-                url: item.poster_path,
+                title: item?.title,
+                url: item?.poster_path,
               };
             })}
           />
 
           <MovieList
             titleList="Top Rated"
-            data={dataTopRated?.results.map((item) => {
+            data={dataTopRated?.results?.map((item) => {
               return {
-                title: item.title,
-                url: item.poster_path,
+                title: item?.original_name || "",
+                url: item?.poster_path,
               };
             })}
           />

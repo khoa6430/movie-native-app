@@ -75,7 +75,7 @@ export default function MovieList(props: IMovieListProps) {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigation.push("Movie")}
+              // onPress={() => navigation.push("Movie")}
             >
               <View style={{ marginVertical: 16, marginRight: 16 }}>
                 <Image

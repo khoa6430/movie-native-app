@@ -1,4 +1,9 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  ParamListBase,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
@@ -14,13 +19,24 @@ import {
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Loading from "../../components/loading";
-import { RootStackParamList } from "../../navigation/appNavigation";
+import {
+  RootRouteProps,
+  RootStackParamList,
+  StackNavigation,
+} from "../../navigation/appNavigation";
 import { useAppTheme } from "../../theme/userTheme";
 import MovieList from "../shared/MovieList";
 import MovieCast from "./MovieCast";
 import MovieInfor from "./MovieInfor";
 import GoBackButton from "../../components/goback-button";
 import FavouriteButton from "../../components/favourite-button";
+import { useGetDetailsMovie } from "../../hooks/movies/useGetDetailsMovie";
+import generateImageUrlBySize, {
+  ImageSize,
+} from "../../constants/get-image-url";
+import { useGetSimilarMovie } from "../../hooks/movies/useGetSimilarMovie";
+import { useGetCasts } from "../../hooks/casts/useGetCasts";
+import FallbackImages from "../../constants/fall-back-image";
 
 export interface IMovieScreenProps {}
 
@@ -43,9 +59,13 @@ const safeAreaViewStyle: SafeAreaViewStyle = {
 
 export default function MovieScreen(props: IMovieScreenProps) {
   const theme = useAppTheme();
-  const { params: item } = useRoute();
+  const route = useRoute<RootRouteProps<"Movie">>();
 
   const [isFavourite, toggleFavourite] = useState<boolean>(false);
+
+  const { data: dataDetails } = useGetDetailsMovie(route?.params?.movieId);
+  const { data: dataSimilar } = useGetSimilarMovie(route?.params?.movieId);
+  const { data: dataCasts } = useGetCasts(route?.params?.movieId);
 
   const [cast, setCast] = useState<any[]>([
     {
@@ -79,9 +99,10 @@ export default function MovieScreen(props: IMovieScreenProps) {
   ]);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [similarMovies, setSimilarMovies] = useState<number[]>([1, 2, 3, 4]);
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  // const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigation>();
+  // const naviagtion = useNavigation<StackNavigation>();
 
   const handleGoback = () => {
     navigation.goBack();
@@ -111,10 +132,15 @@ export default function MovieScreen(props: IMovieScreenProps) {
         ) : (
           <View>
             <Image
-              source={require("../../../assets/images/moviePoster2.png")}
+              source={{
+                uri: generateImageUrlBySize(
+                  ImageSize.W500,
+                  dataDetails?.poster_path || FallbackImages.FallbackMoviePoster
+                ),
+              }}
               style={{ width, height: height * 0.55 }}
             />
-            {/* <LinearGradient
+            <LinearGradient
               colors={[
                 "transparent",
                 "rgba(23, 23, 23, 0.8)",
@@ -128,21 +154,25 @@ export default function MovieScreen(props: IMovieScreenProps) {
               }}
               start={{ x: 0.5, y: 0 }}
               end={{ x: 0.5, y: 1 }}
-            /> */}
+            />
           </View>
         )}
       </View>
 
-      <MovieInfor />
-      {cast?.length > 0 && <MovieCast cast={cast} />}
+      <MovieInfor dataDetailsMovie={dataDetails} />
+      <MovieCast cast={dataCasts?.cast} />
 
-      {similarMovies?.length > 0 && (
-        // <MovieList
-        //   data={similarMovies}
-        //   titleList="Similiar Movies"
-        //   hideSeeAll
-        // />
-        <></>
+      {dataSimilar?.results && (
+        <MovieList
+          data={dataSimilar?.results?.map((item) => {
+            return {
+              title: item?.title || "",
+              url: item?.poster_path,
+            };
+          })}
+          titleList="Similiar Movies"
+          hideSeeAll
+        />
       )}
     </ScrollView>
   );

@@ -8,6 +8,7 @@ import {
 import generateImageUrlBySize, {
   ImageSize,
 } from "../../../constants/get-image-url";
+import FallbackImages from "../../../constants/fall-back-image";
 
 export interface IMovieCardProps {
   url: string;
@@ -20,7 +21,12 @@ export default function MovieCard(props: IMovieCardProps) {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick()}>
       <Image
-        source={{ uri: generateImageUrlBySize(ImageSize.W500, url) }}
+        source={{
+          uri: generateImageUrlBySize(
+            ImageSize.W500,
+            url || FallbackImages.FallbackMoviePoster
+          ),
+        }}
         style={{
           width: width * 0.6,
           height: height * 0.4,

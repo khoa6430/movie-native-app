@@ -17,10 +17,10 @@ export default function TrendingMovieSlide(props: ITrendingMovieProps) {
   const theme = useAppTheme();
   const { data } = useGetTrendingMovie();
 
-  const { navigate } = useNavigation<StackNavigation>();
+  const navigation = useNavigation<StackNavigation>();
 
-  const handleClick = () => {
-    navigate("Movie");
+  const handleClick = (id: number) => {
+    navigation.navigate("Movie", { movieId: `${id}` });
   };
 
   return (
@@ -39,7 +39,10 @@ export default function TrendingMovieSlide(props: ITrendingMovieProps) {
         <Carousel
           data={data?.results || []}
           renderItem={({ item }: { item: TrendingMovie }) => (
-            <MovieCard url={item.poster_path} handleClick={handleClick} />
+            <MovieCard
+              url={item.poster_path}
+              handleClick={() => handleClick(item.id)}
+            />
           )}
           firstItem={1}
           inactiveSlideOpacity={0.6}

@@ -5,13 +5,7 @@ import { PaperProvider } from "react-native-paper";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1200,
-      },
-    },
-  });
+  const queryClient = new QueryClient();
 
   return (
     <StrictMode>
