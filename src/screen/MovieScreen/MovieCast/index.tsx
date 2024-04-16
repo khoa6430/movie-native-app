@@ -67,8 +67,8 @@ export default function MovieCast(props: IMovieCastProps) {
                     source={{
                       uri: generateImageUrlBySize(
                         ImageSize.W185,
-                        person?.profile_path ||
-                          FallbackImages.FallbackPersonImage
+                        person?.profile_path,
+                        FallbackImages.FallbackPersonImage
                       ),
                     }}
                     style={{

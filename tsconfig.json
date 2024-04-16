@@ -10,7 +10,7 @@
     "src/*": ["./src/*"],
     "@Configs/*": ["./src/configs/*"],
     "@Stores/*": ["./src/stores/*"],
-    "@Component": ["./src/components/*"],
+    "@Component/": ["./src/components/*"],
     "@Public/*": ["./public/*"]
   }
 }

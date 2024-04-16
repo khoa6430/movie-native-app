@@ -90,8 +90,8 @@ export default function ActorDetail(props: IActorDetailProps) {
                 source={{
                   uri: generateImageUrlBySize(
                     ImageSize.W342,
-                    dataDetailsCast?.profile_path ||
-                      FallbackImages.FallbackPersonImage
+                    dataDetailsCast?.profile_path,
+                    FallbackImages.FallbackPersonImage
                   ),
                 }}
                 style={{ height: height * 0.43, width: width * 0.74 }}

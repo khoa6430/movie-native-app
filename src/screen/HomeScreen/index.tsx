@@ -15,6 +15,7 @@ import MovieList from "../shared/MovieList";
 import TrendingMovieSlide from "./TrendingMovie";
 import { useGetUpcomingMovie } from "../../hooks/movies/useGetUpcomingMovie";
 import { useGetTopRatedMovie } from "../../hooks/movies/useGetTopRatedMovie";
+import Loading from "../../components/loading";
 
 const ios = Platform.OS == "ios";
 const HomeScreen = () => {
@@ -22,8 +23,11 @@ const HomeScreen = () => {
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const { data: dataUpcoming } = useGetUpcomingMovie();
-  const { data: dataTopRated } = useGetTopRatedMovie();
+  const { data: dataUpcoming, isLoading: isLoadingUpcoming } =
+    useGetUpcomingMovie();
+  const { data: dataTopRated, isLoading: isLoadingTopRated } =
+    useGetTopRatedMovie();
+  const isLoading = isLoadingUpcoming && isLoadingTopRated;
 
   return (
     <View
@@ -51,31 +55,35 @@ const HomeScreen = () => {
             <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
           </TouchableOpacity>
         </View>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 10 }}
-        >
-          <TrendingMovieSlide />
-          <MovieList
-            titleList="Upcoming"
-            data={dataUpcoming?.results.map((item) => {
-              return {
-                title: item?.title,
-                url: item?.poster_path,
-              };
-            })}
-          />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 10 }}
+          >
+            <TrendingMovieSlide />
+            <MovieList
+              titleList="Upcoming"
+              data={dataUpcoming?.results.map((item) => {
+                return {
+                  title: item?.title,
+                  url: item?.poster_path,
+                };
+              })}
+            />
 
-          <MovieList
-            titleList="Top Rated"
-            data={dataTopRated?.results?.map((item) => {
-              return {
-                title: item?.original_name || "",
-                url: item?.poster_path,
-              };
-            })}
-          />
-        </ScrollView>
+            <MovieList
+              titleList="Top Rated"
+              data={dataTopRated?.results?.map((item) => {
+                return {
+                  title: item?.original_name || "",
+                  url: item?.poster_path,
+                };
+              })}
+            />
+          </ScrollView>
+        )}
       </SafeAreaView>
     </View>
   );

@@ -15,6 +15,7 @@ import { useAppTheme } from "../../../theme/userTheme";
 import generateImageUrlBySize, {
   ImageSize,
 } from "../../../constants/get-image-url";
+import FallbackImages from "../../../constants/fall-back-image";
 
 interface Movie {
   title: string;
@@ -80,7 +81,11 @@ export default function MovieList(props: IMovieListProps) {
               <View style={{ marginVertical: 16, marginRight: 16 }}>
                 <Image
                   source={{
-                    uri: generateImageUrlBySize(ImageSize.W185, item?.url),
+                    uri: generateImageUrlBySize(
+                      ImageSize.W185,
+                      item?.url,
+                      FallbackImages.FallbackMoviePoster
+                    ),
                   }}
                   style={{
                     width: width * 0.33,

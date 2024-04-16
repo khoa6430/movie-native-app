@@ -3,26 +3,17 @@ import { Dimensions, Platform, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppTheme } from "../../../theme/userTheme";
 import { DetailsMovie } from "../../../types/movie.type";
+import Loading from "../../../components/loading";
 
 export interface IMovieDetailProps {
+  isLoading: boolean;
   dataDetailsMovie?: DetailsMovie;
-}
-
-interface Genre {
-  name: string;
-}
-interface Movie {
-  id: string;
-  title: string;
-  status: string;
-  genres: Genre[];
-  overview: string;
 }
 
 let { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
 export default function MovieInfor(props: IMovieDetailProps) {
-  const { dataDetailsMovie } = props;
+  const { dataDetailsMovie, isLoading } = props;
   const theme = useAppTheme();
 
   return (

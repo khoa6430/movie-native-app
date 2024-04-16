@@ -10,9 +10,9 @@ export default function Loading() {
   return (
     <View
       style={{
-        height,
+        height: height,
         width,
-        position: "absolute",
+        // position: "absolute",
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",

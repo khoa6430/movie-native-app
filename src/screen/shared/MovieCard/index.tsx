@@ -24,7 +24,8 @@ export default function MovieCard(props: IMovieCardProps) {
         source={{
           uri: generateImageUrlBySize(
             ImageSize.W500,
-            url || FallbackImages.FallbackMoviePoster
+            url,
+            FallbackImages.FallbackMoviePoster
           ),
         }}
         style={{

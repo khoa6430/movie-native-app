@@ -8,10 +8,11 @@ import {
   RootRouteProps,
   RootStackParamList,
 } from "../../navigation/appNavigation";
-import GoBackButton from "../../components/goback-button";
-import FavouriteButton from "../../components/favourite-button";
+
 import ActorDetail from "./ActorDetail";
 import { useGetDetailsCast } from "../../hooks/casts/useGetDetailsCast";
+import GoBackButton from "../../components/goback-button";
+import FavouriteButton from "../../components/favourite-button";
 
 export interface IActorScreenProps {}
 

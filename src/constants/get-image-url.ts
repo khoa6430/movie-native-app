@@ -8,10 +8,11 @@ export enum ImageSize {
 // Function to generate image URLs based on size and path
 const generateImageUrlBySize = (
   size: ImageSize,
-  path: string | undefined
+  path: string | undefined,
+  fallBackImage: string
 ): string => {
   if (!path) {
-    return "";
+    return fallBackImage;
   }
 
   return `https://image.tmdb.org/t/p/${size}/${path}`;
