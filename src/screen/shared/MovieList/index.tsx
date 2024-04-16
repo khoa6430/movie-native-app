@@ -17,6 +17,7 @@ import generateImageUrlBySize, {
 } from "../../../constants/get-image-url";
 
 interface Movie {
+  id: number;
   title: string;
   url: string;
 }
@@ -25,12 +26,13 @@ export interface IMovieListProps {
   titleList: string;
   data?: Movie[];
   hideSeeAll?: boolean;
+  handleClickItem: (id: number) => void;
 }
 
 let { width, height } = Dimensions.get("window");
 
 export default function MovieList(props: IMovieListProps) {
-  const { titleList, data, hideSeeAll = false } = props;
+  const { titleList, data, hideSeeAll = false, handleClickItem } = props;
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const theme = useAppTheme();
 
@@ -75,7 +77,7 @@ export default function MovieList(props: IMovieListProps) {
           return (
             <TouchableWithoutFeedback
               key={index}
-              // onPress={() => navigation.push("Movie")}
+              onPress={() => handleClickItem(item.id)}
             >
               <View style={{ marginVertical: 16, marginRight: 16 }}>
                 <Image

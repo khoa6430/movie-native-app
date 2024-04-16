@@ -25,6 +25,10 @@ const HomeScreen = () => {
   const { data: dataUpcoming } = useGetUpcomingMovie();
   const { data: dataTopRated } = useGetTopRatedMovie();
 
+  const handleClick = (id: number) => {
+    navigation.navigate("Movie", { movieId: `${id}` });
+  };
+
   return (
     <View
       style={{
@@ -55,25 +59,29 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
         >
-          <TrendingMovieSlide />
+          <TrendingMovieSlide handleClick={handleClick} />
           <MovieList
             titleList="Upcoming"
             data={dataUpcoming?.results.map((item) => {
               return {
+                id: item?.id,
                 title: item?.title,
                 url: item?.poster_path,
               };
             })}
+            handleClickItem={handleClick}
           />
 
           <MovieList
             titleList="Top Rated"
             data={dataTopRated?.results?.map((item) => {
               return {
+                id: item?.id,
                 title: item?.original_name || "",
                 url: item?.poster_path,
               };
             })}
+            handleClickItem={handleClick}
           />
         </ScrollView>
       </SafeAreaView>

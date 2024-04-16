@@ -9,19 +9,15 @@ import MovieCard from "../../shared/MovieCard";
 import { TrendingMovie } from "../../../types/movie.type";
 
 export interface ITrendingMovieProps {
-  // data: number[];
+  handleClick: (id: number) => void;
 }
 let { width, height } = Dimensions.get("window");
 export default function TrendingMovieSlide(props: ITrendingMovieProps) {
-  // const { data } = props;
+  const { handleClick } = props;
   const theme = useAppTheme();
   const { data } = useGetTrendingMovie();
 
   const navigation = useNavigation<StackNavigation>();
-
-  const handleClick = (id: number) => {
-    navigation.navigate("Movie", { movieId: `${id}` });
-  };
 
   return (
     <>
